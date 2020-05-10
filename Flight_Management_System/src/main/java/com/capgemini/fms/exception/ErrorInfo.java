@@ -1,24 +1,24 @@
 package com.capgemini.fms.exception;
 
 public class ErrorInfo {
-	private String messgae;
+	private String messege;
 
 	public ErrorInfo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ErrorInfo(String messgae) {
+	public ErrorInfo(String messege) {
 		super();
-		this.messgae = messgae;
+		this.messege = messege;
 	}
 
-	public String getMessgae() {
-		return messgae;
+	public String getMessege() {
+		return messege;
 	}
 
-	public void setMessgae(String messgae) {
-		this.messgae = messgae;
+	public void setMessege(String messege) {
+		this.messege = messege;
 	}
 
 }
