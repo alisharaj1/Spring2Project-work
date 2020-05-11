@@ -46,12 +46,7 @@ public class AirportController {
 			throw new AirportException("Code already exists");
 		}
 	}
-	@CrossOrigin
-	@GetMapping("/getairportdetails")
-	public ResponseEntity<Airport> airportdetails(@Valid @RequestParam String airportCode){
-		return new ResponseEntity<Airport>(HttpStatus.OK);
-		}
-
+	
 	@CrossOrigin
 	@GetMapping("/viewallairport")
 	public ResponseEntity<List<Airport>> getAirportlist() {
