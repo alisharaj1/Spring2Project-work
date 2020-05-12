@@ -5,6 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -13,7 +14,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @DynamicUpdate(true)
 @DynamicInsert(true)
 public class Airport {
-//@NotNull(message="Airport Code Is Mandatory")
+@NotEmpty(message="Airport Code Is Mandatory")
 @Id
 @Column(name="airport_code")
 private String airportCode;
