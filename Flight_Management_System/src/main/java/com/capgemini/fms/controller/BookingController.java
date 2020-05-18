@@ -2,7 +2,7 @@ package com.capgemini.fms.controller;
 import java.util.List;
 
 import javax.validation.Valid;
-import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -22,90 +22,85 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.fms.entity.Airport;
+import com.capgemini.fms.entity.Booking;
 import com.capgemini.fms.entity.Flight;
-import com.capgemini.fms.exception.FlightException;
-import com.capgemini.fms.service.FlightService;
-@CrossOrigin(origins="http://localhost:4200")
+import com.capgemini.fms.exception.BookingException;
+import com.capgemini.fms.service.BookingService;
+
 @RestController
-public class FlightController {
+public class BookingController {
 	@Autowired
-	private FlightService flightservice;
+	private BookingService bookingservice;
 
 	@CrossOrigin
-	@PostMapping("/addflight")
-	public ResponseEntity<String> addFlight(@Valid @RequestBody Flight flight, BindingResult br)
-			throws FlightException {
+	@PostMapping("/addbooking")
+	public ResponseEntity<String> addBooking(@Valid @RequestBody Booking booking, BindingResult br)
+			throws BookingException {
 		String err = "";
 		if (br.hasErrors()) {
 			List<FieldError> errors = br.getFieldErrors();
 			for (FieldError error : errors)
 				err += error.getDefaultMessage() + "<br/>";
-			throw new FlightException(err);
+			throw new BookingException(err);
 		}
 		try {
-			flightservice.addflight(flight);
+			bookingservice.addbooking(booking);
 			return new ResponseEntity<String>("Flight added successfully", HttpStatus.OK);
 
 		} catch (DataIntegrityViolationException ex) {
-			throw new FlightException("ID already exists");
+			throw new BookingException("ID already exists");
 		}
 	}
 
 	@CrossOrigin
-	@GetMapping("/viewallflight")
-	public ResponseEntity<List<Flight>> getFlightlist() {
-		List<Flight> flightList = flightservice.show();
-		return new ResponseEntity<List<Flight>>(flightList, HttpStatus.OK);
+	@GetMapping("/viewallbooking")
+	public ResponseEntity<List<Booking>> getBookinglist() {
+		List<Booking> bookingList = bookingservice.show();
+		return new ResponseEntity<List<Booking>>(bookingList, HttpStatus.OK);
 	}
 	
 	@CrossOrigin
-	@DeleteMapping("/deleteflight/{flightNumber}")
-	public ResponseEntity<String> deleteflight( @PathVariable Integer flightNumber) throws FlightException
+	@DeleteMapping("/deletebooking/{id}")
+	public ResponseEntity deletebooking(@Valid @RequestParam long bookingId) throws BookingException
 	{
 		try
 		{
-			flightservice.deleteflight( flightNumber);
-			return new ResponseEntity<String>("flight is deleted", HttpStatus.OK);
+			bookingservice.deletebooking( bookingId);
+			return new ResponseEntity<String>("BookingId is deleted", HttpStatus.OK);
 		}
 		catch (DataIntegrityViolationException ex) {
-			throw new FlightException("flight number  doesnot exists");
+			throw new BookingException("this bookingId does not exist");
 		}
 	}
 	
 	@CrossOrigin
-	@PutMapping("/updateflight/{flightNumber}")
-	public ResponseEntity<String> updateflight(@Valid @RequestBody Flight flight,@PathVariable Integer flightNumber,BindingResult br ) throws FlightException
+	@PutMapping("/updatebooking/{id}")
+	public ResponseEntity updatebooking(@Valid @RequestBody Booking booking,@RequestParam long bookingId,BindingResult br ) throws BookingException
 	{
 		String err = "";
 		if (br.hasErrors()) {
 			List<FieldError> errors = br.getFieldErrors();
 			for (FieldError error : errors)
 				err += error.getDefaultMessage() + "<br/>";
-			throw new FlightException(err);
+			throw new BookingException(err);
 		}
 		try {
-			flightservice.updateflight(flight,flightNumber);
-			return new ResponseEntity<String>("Flight updated successfully", HttpStatus.OK);
+			bookingservice.updatebooking(booking,bookingId);
+			return new ResponseEntity<String>("booking updated successfully", HttpStatus.OK);
 
 		} catch (DataIntegrityViolationException ex) {
-			throw new FlightException("flight number already exists");
+			throw new BookingException("bookingId already exist");
 		}
 	}
 	@CrossOrigin
-	@GetMapping("/getflightdetails/{flightNumber")
-	public Optional<Flight> flightdetails(@PathVariable Integer flightNumber) throws FlightException{
-		try {
-			return flightservice.flightdetails(flightNumber);
+	@GetMapping("/getbookingdetails")
+	public ResponseEntity<List<Booking>> bookingdetails(@Valid @RequestParam long bookingId){
+		List<Booking> bookingList = bookingservice.show();
+		return new ResponseEntity<List<Booking>>(bookingList,HttpStatus.OK);
 		}
-		catch(Exception ex)
-		{
-			throw new FlightException(ex.getMessage());
-		}
-	}
 		
 	}
 		
-
 	
 	
-
+	
