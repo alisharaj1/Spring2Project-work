@@ -1,23 +1,13 @@
 package com.capgemini.fms.service;
-
-
 import java.util.List;
 import java.util.Optional;
-
 import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.capgemini.fms.dao.FlightDao;
 import com.capgemini.fms.entity.Flight;
-
-
-
 @Service
-
 public class FlightService {
-	
 	@Autowired
 	private FlightDao flightDao;
 	

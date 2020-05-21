@@ -3,7 +3,10 @@ package com.capgemini.fms.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
@@ -18,6 +21,7 @@ public class Airport {
 @Id
 @Column(name="airport_code")
 private String airportCode;
+
 @Column(name="airport_name")
 private String airportName;
 @Column(name="airport_location")
