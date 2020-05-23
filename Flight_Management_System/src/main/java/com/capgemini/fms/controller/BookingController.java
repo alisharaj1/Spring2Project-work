@@ -33,7 +33,7 @@ public class BookingController {
 	@Autowired
 	private BookingService bookingservice;
 
-	@CrossOrigin 
+	@CrossOrigin(origins="http://localhost:4200")
 	@PostMapping("/addbooking")
 	public ResponseEntity<String> addBooking(@Valid @RequestBody Booking booking, BindingResult br)
 			throws BookingException {

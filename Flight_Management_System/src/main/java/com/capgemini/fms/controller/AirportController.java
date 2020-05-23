@@ -45,7 +45,7 @@ public class AirportController {
 				return new ResponseEntity<String>("Airport added successfully", HttpStatus.OK);
 
 		} catch (DataIntegrityViolationException ex) {
-			throw new AirportException("Code already exists");
+			throw new AirportException("code already exists");
 		}
 	}
 	

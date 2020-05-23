@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -19,9 +20,9 @@ import org.hibernate.annotations.DynamicUpdate;
 public class Airport {
 @NotEmpty(message="Airport Code Is Mandatory")
 @Id
-@Column(name="airport_code")
+@Pattern(regexp = "^[\\p{L} .'-]+$", message = "code should not contain special characters.")
+@Column(name="airport_code",unique=true)
 private String airportCode;
-
 @Column(name="airport_name")
 private String airportName;
 @Column(name="airport_location")
